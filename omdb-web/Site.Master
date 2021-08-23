@@ -45,9 +45,9 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/ProductList.aspx?type=movie&page=1">Movies
+                        <li><a href="ProductList.aspx?type=movie&page=1">Movies
                         </a></li>
-                        <li><a href="/ProductList.aspx?type=series&page=1">Series
+                        <li><a href="ProductList.aspx?type=series&page=1">Series
                         </a></li>
                     </ul>
                 </div>

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OMDBWeb
+namespace omdb_web
 {
 
 
