@@ -1,0 +1,187 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    background-color: #080808;
+    color: #FFFFFF;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+}
+
+    .body-content:before {
+        display: none;
+    }
+
+.grid-movie-display {
+    display: grid;
+    justify-content: center;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(5, 26%);
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    color: #000;
+    max-width: 280px;
+}
+
+a {
+    color: #FFF;
+}
+
+    a:hover {
+        color: #FFF;
+    }
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+
+/**
+    CSS For Navbar
+*/
+.navbar .container {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-search-container {
+    padding-top: 10px;
+    margin-left: auto;
+}
+
+/**
+    CSS For Default.aspx
+*/
+.default-page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 600px;
+}
+
+    .default-page-container a {
+        text-decoration: none;
+    }
+
+        .default-page-container a:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+.default-page-tags {
+    display: block;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.default-page-movies {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.default-page-series {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/**
+    CSS for ProductList Page
+*/
+.movie-pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+    .movie-pagination a {
+        font-size: 24px;
+        padding: 8px;
+    }
+
+/**
+    CSS for ProductDetails Page, Movie Details
+*/
+.movie-details-poster-image {
+    width: 300px;
+    height: 450px;
+    margin-bottom: 10px;
+}
+
+.movie-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+    .movie-container .movie-poster-container {
+        padding: 10px 10px 10px 0px;
+    }
+
+    .movie-container .movie-details-container {
+        padding: 10px;
+    }
+
+        .movie-container .movie-details-container div {
+            padding: 2px;
+        }
+
+    .movie-container .movie-details-tag {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .movie-container .movie-details-container .movie-details-title {
+        font-size: 26px;
+    }
+
+/**
+    CSS for ProductDetails Page, Episode Dropdown
+*/
+.season-episodes-container {
+}
+
+.season-dropdown-list-container {
+    width: 100%;
+    text-align: center;
+}
+
+.season-episodes-container a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px 10px 0px;
+    text-decoration: none;
+}
+
+    .season-episodes-container a:hover {
+        text-decoration: underline;
+    }
