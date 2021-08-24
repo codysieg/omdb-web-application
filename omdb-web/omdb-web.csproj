@@ -127,6 +127,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="PaginationUserControl.ascx" />
     <Content Include="ProductDetails.aspx" />
     <Content Include="ProductList.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -189,6 +190,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="PaginationUserControl.ascx.cs">
+      <DependentUpon>PaginationUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginationUserControl.ascx.designer.cs">
+      <DependentUpon>PaginationUserControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProductDetails.aspx.cs">
       <DependentUpon>ProductDetails.aspx</DependentUpon>

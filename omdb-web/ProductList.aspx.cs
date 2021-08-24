@@ -18,6 +18,13 @@ namespace omdb_web
         {
             if (!IsPostBack)
             {
+                /**
+                 * Fetch Query Parameters
+                 * 
+                 * type - movie || series
+                 * search - search query
+                 * page - page number
+                 */
                 APIContentType = Request.QueryString["type"];
                 APIContentTitle = Request.QueryString["search"];
                 APIPageNumber = Request.QueryString["page"];
@@ -28,62 +35,20 @@ namespace omdb_web
                     Context.ApplicationInstance.CompleteRequest();
                 }
 
+                /**
+                 * Default API call when no search parameters are passed in. - search query param will be empty.
+                 */
                 if (APIContentTitle == null || APIContentTitle.Equals(""))
                 {
-                    Movies movies = null;
-                    switch (APIContentType)
-                    {
-                        case "movie":
-                            movies = await omdb_dal.HTTPConnector.getAPIByTitleAndType("movie", APIContentType, APIPageNumber);
-                            numberOfPages = (int)(movies.TotalResults / 10.0) + 1;
-                            APIDataList.DataSource = movies.movies;
-                            APIDataList.DataBind();
-                            break;
-                        case "series":
-                            movies = await omdb_dal.HTTPConnector.getAPIByTitleAndType("how", APIContentType, APIPageNumber);
-                            APIDataList.DataSource = movies.movies;
-                            numberOfPages = (int)(movies.TotalResults / 10.0) + 1;
-                            APIDataList.DataBind();
-                            break;
-                        default:
-                            break;
-                    }
+                    //Initial API call for both movies / series selection. "First". API requires a title search or an IMDB ID search.
+                    Movies movies = await omdb_dal.HTTPConnector.getAPIByTitleAndType("first", APIContentType, APIPageNumber);
+                    numberOfPages = (int)(movies.TotalResults / 10.0) + 1;
+                    APIDataList.DataSource = movies.movies;
+                    APIDataList.DataBind();
 
-                    //First
-                    HyperLink firstLink = new HyperLink();
-                    firstLink.CssClass = "glyphicon glyphicon-fast-backward";
-                    firstLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + 1;
-                    PaginationPlaceholder.Controls.Add(firstLink);
-
-                    //Previous
-                    HyperLink previousLink = new HyperLink();
-                    previousLink.CssClass = "glyphicon glyphicon-backward";
-                    previousLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) - 1);
-                    PaginationPlaceholder.Controls.Add(previousLink);
-
-                    //Next
-                    HyperLink nextLink = new HyperLink();
-                    nextLink.CssClass = "glyphicon glyphicon-forward";
-                    nextLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) + 1);
-                    PaginationPlaceholder.Controls.Add(nextLink);
-
-                    //Last
-                    HyperLink lastLink = new HyperLink();
-                    lastLink.CssClass = "glyphicon glyphicon-fast-forward";
-                    lastLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + numberOfPages;
-                    PaginationPlaceholder.Controls.Add(lastLink);
-
-                    if (APIPageNumber.Equals("1"))
-                    {
-                        firstLink.Visible = false;
-                        previousLink.Visible = false;
-                    }
-
-                    else if (APIPageNumber.Equals(numberOfPages.ToString()))
-                    {
-                        nextLink.Visible = false;
-                        lastLink.Visible = false;
-                    }
+                    paginationControl.APIPageNumber = APIPageNumber;
+                    paginationControl.APIContentType = APIContentType;
+                    paginationControl.numberOfPages = numberOfPages.ToString();
                 }
                 else
                 {
@@ -94,124 +59,13 @@ namespace omdb_web
                     APIDataList.DataBind();
                     numberOfPages = (int)(movies.TotalResults / 10.0) + 1;
 
-                    //First
-                    HyperLink firstLink = new HyperLink();
-                    firstLink.CssClass = "glyphicon glyphicon-fast-backward";
-                    firstLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + 1 + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(firstLink);
+                    paginationControl.APIPageNumber = APIPageNumber;
+                    paginationControl.APIContentType = APIContentType;
+                    paginationControl.numberOfPages = numberOfPages.ToString();
 
-                    //Previous
-                    HyperLink previousLink = new HyperLink();
-                    previousLink.CssClass = "glyphicon glyphicon-backward";
-                    previousLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) - 1) + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(previousLink);
-
-                    //Next
-                    HyperLink nextLink = new HyperLink();
-                    nextLink.CssClass = "glyphicon glyphicon-forward";
-                    nextLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) + 1) + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(nextLink);
-
-                    //Last
-                    HyperLink lastLink = new HyperLink();
-                    lastLink.CssClass = "glyphicon glyphicon-fast-forward";
-                    lastLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + numberOfPages + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(lastLink);
-
-                    if (APIPageNumber.Equals("1"))
-                    {
-                        firstLink.Visible = false;
-                        previousLink.Visible = false;
-                    }
-
-                    else if (APIPageNumber.Equals(numberOfPages.ToString()))
-                    {
-                        nextLink.Visible = false;
-                        lastLink.Visible = false;
-                    }
                 }
 
                 Page.DataBind();
-            }
-
-            else
-            {
-                if (APIContentTitle == null || APIContentTitle.Equals(""))
-                {
-                    //First
-                    HyperLink firstLink = new HyperLink();
-                    firstLink.CssClass = "glyphicon glyphicon-fast-backward";
-                    firstLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + 1;
-                    PaginationPlaceholder.Controls.Add(firstLink);
-
-                    //Previous
-                    HyperLink previousLink = new HyperLink();
-                    previousLink.CssClass = "glyphicon glyphicon-backward";
-                    previousLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) - 1);
-                    PaginationPlaceholder.Controls.Add(previousLink);
-
-                    //Next
-                    HyperLink nextLink = new HyperLink();
-                    nextLink.CssClass = "glyphicon glyphicon-forward";
-                    nextLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) + 1);
-                    PaginationPlaceholder.Controls.Add(nextLink);
-
-                    //Last
-                    HyperLink lastLink = new HyperLink();
-                    lastLink.CssClass = "glyphicon glyphicon-fast-forward";
-                    lastLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + numberOfPages;
-                    PaginationPlaceholder.Controls.Add(lastLink);
-
-                    if (APIPageNumber.Equals("1"))
-                    {
-                        firstLink.Visible = false;
-                        previousLink.Visible = false;
-                    }
-
-                    else if (APIPageNumber.Equals(numberOfPages.ToString()))
-                    {
-                        nextLink.Visible = false;
-                        lastLink.Visible = false;
-                    }
-                }
-                else
-                {
-                    //First
-                    HyperLink firstLink = new HyperLink();
-                    firstLink.CssClass = "glyphicon glyphicon-fast-backward";
-                    firstLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + 1 + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(firstLink);
-
-                    //Previous
-                    HyperLink previousLink = new HyperLink();
-                    previousLink.CssClass = "glyphicon glyphicon-backward";
-                    previousLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) - 1) + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(previousLink);
-
-                    //Next
-                    HyperLink nextLink = new HyperLink();
-                    nextLink.CssClass = "glyphicon glyphicon-forward";
-                    nextLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + (int.Parse(APIPageNumber) + 1) + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(nextLink);
-
-                    //Last
-                    HyperLink lastLink = new HyperLink();
-                    lastLink.CssClass = "glyphicon glyphicon-fast-forward";
-                    lastLink.NavigateUrl = "ProductList.aspx?type=" + APIContentType + "&page=" + numberOfPages + "&search=" + APIContentTitle;
-                    PaginationPlaceholder.Controls.Add(lastLink);
-
-                    if (APIPageNumber.Equals("1"))
-                    {
-                        firstLink.Visible = false;
-                        previousLink.Visible = false;
-                    }
-
-                    else if (APIPageNumber.Equals(numberOfPages.ToString()))
-                    {
-                        nextLink.Visible = false;
-                        lastLink.Visible = false;
-                    }
-                }
             }
         }
 

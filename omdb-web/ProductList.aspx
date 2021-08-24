@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProductList.aspx.cs" Inherits="omdb_web.ProductList" Async="true" %>
+<%@ Register Src="~/PaginationUserControl.ascx" TagName="PaginationControl" TagPrefix="PaginationControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="grid-movie-display">
@@ -21,6 +22,7 @@
     <div class="movie-pagination">
         <asp:PlaceHolder ID="PaginationPlaceholder" runat="server"></asp:PlaceHolder>
     </div>
+    <PaginationControl:PaginationControl ID="paginationControl" runat="server"></PaginationControl:PaginationControl>
     <div class="movie-pagination">
         Page <asp:TextBox ID="PaginationTextBox" AutoPostBack="true" Text="<%# APIPageNumber %>" OnTextChanged="PaginationTextBox_TextChanged" CausesValidation="true" runat="server"></asp:TextBox>
         of <%# numberOfPages %>
