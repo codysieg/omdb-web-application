@@ -1,18 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProductList.aspx.cs" Inherits="omdb_web.ProductList" Async="true" %>
-<%@ Register Src="~/PaginationUserControl.ascx" TagName="PaginationControl" TagPrefix="PaginationControl" %>
+<%@ Register Src="~/UserControls/PaginationUserControl.ascx" TagName="PaginationControl" TagPrefix="PaginationControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="grid-movie-display">
         <asp:ListView ID="APIDataList" runat="server" ItemType="omdb_dal.Models.Movie">
             <ItemTemplate>
-                <%-- Routing Method --- ProductDetails.aspx/IMDBId --%>
-                <%--            
-                <a href="<%# GetRouteUrl("ProductsByIMDBRoute", new { IMDBId = Item.ImdbID}) %>">
-                    <asp:Image ID="Image1" runat="server" ImageUrl="<%# Item.Poster %>" />
-                 </a>
-                --%>
-
-                <%-- Query Parameter method --- ProductDetails.aspx?IMDBId=id --%>
                 <a href="ProductDetails.aspx?IMDBId=<%#Item.ImdbID %>">
                     <asp:Image ID="Poster" runat="server" ImageUrl="<%# Item.Poster %>" CssClass="movie-details-poster-image" />
                 </a>

@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\omdb-web\packages\Dapper.2.0.90\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\omdb-web\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -71,6 +74,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Procs\dbo.CreateUserProcedure.sql" />
+    <Content Include="App_Data\dbo.Users_Create.sql" />
+    <Content Include="App_Data\omdbdb.mdf" />
+    <Content Include="App_Data\omdbdb_log.ldf">
+      <DependentUpon>omdbdb.mdf</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +89,8 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Movies.cs" />
     <Compile Include="Models\Series.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="OmdbDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

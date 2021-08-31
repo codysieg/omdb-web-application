@@ -41,21 +41,45 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" runat="server" href="~/">Movie Hub</a>
+                    <a class="navbar-brand" href="~" runat="server">Movie Hub</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="ProductList.aspx?type=movie&page=1">Movies
-                        </a></li>
-                        <li><a href="ProductList.aspx?type=series&page=1">Series
-                        </a></li>
+                        <li>
+                            <a runat="server" href="~/SecurePages/ProductList.aspx?type=movie&page=1">Movies</a>
+                        </li>
+                        <li>
+                            <a runat="server" href="~/SecurePages/ProductList.aspx?type=series&page=1">Series</a>
+                        </li>
                     </ul>
                 </div>
                 <div id="SearchBoxContainer" class="navbar-search-container" runat="server">
                     <div class="input-group rounded">
-                        <asp:TextBox ID="SearchBox" CssClass="form-control rounded" placeholder="Search for a title..." AutoPostBack="true" OnTextChanged="SearchBox_Submitted" runat="server"/>
+                        <asp:TextBox ID="SearchBox" CssClass="form-control rounded" placeholder="Search for a title..." AutoPostBack="true" OnTextChanged="SearchBox_Submitted" runat="server" />
                     </div>
                 </div>
+
+                <div id="LoginDiv" class="navbar-collapse collapse" runat="server">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="nav-link" href="~/Login.aspx" runat="server">Login</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div id="LogoutDiv" class="navbar-collapse collapse" runat="server">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <asp:Label ID="CurrentEmailLabel" class="currentEmailWelcome" runat="server" />
+                        </li>
+                        <li>
+                            <a class="nav-link" id="cmdSignOut" runat="server">Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+
             </div>
         </div>
 

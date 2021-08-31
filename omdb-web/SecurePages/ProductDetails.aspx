@@ -34,8 +34,8 @@
 
     <asp:ListView ID="SeasonEpisodesListView" ItemType="omdb_dal.Models.Episode" runat="server">
         <ItemTemplate>
-            <div class="season-episodes-container" runat="server">
-                <a href="ProductDetails.aspx?IMDBId=<%#Item.ImdbID %>">
+            <div class="season-episodes-container">
+                <a href="SecurePages/ProductDetails.aspx?IMDBId=<%#Item.ImdbID %>">
                     <div class="season-episodes-title" runat="server"><%#Item.Title%></div>
                     <div class="season-episodes-number" runat="server"><%#Item.EpisodeNumber%></div>
                 </a>

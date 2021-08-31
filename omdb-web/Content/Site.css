@@ -185,3 +185,32 @@ a {
     .season-episodes-container a:hover {
         text-decoration: underline;
     }
+
+
+
+#LoginDiv{
+    margin-left: auto;
+}
+
+#LogoutDiv {
+    margin-left: auto;
+}
+
+.currentEmailWelcome {
+    display: block;
+    color: #9d9d9d;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.flex-inner {
+
+}

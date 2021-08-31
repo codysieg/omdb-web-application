@@ -11,70 +11,61 @@ namespace omdb_web
 {
 
 
-    public partial class SiteMaster
+    public partial class Login
     {
 
         /// <summary>
-        /// SearchBoxContainer control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SearchBoxContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtEmail;
 
         /// <summary>
-        /// SearchBox control.
+        /// vEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SearchBox;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vEmail;
 
         /// <summary>
-        /// LoginDiv control.
+        /// txtPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginDiv;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
 
         /// <summary>
-        /// LogoutDiv control.
+        /// vPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LogoutDiv;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vPassword;
 
         /// <summary>
-        /// CurrentEmailLabel control.
+        /// chkPersistCookie control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentEmailLabel;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkPersistCookie;
 
         /// <summary>
-        /// cmdSignOut control.
+        /// cmdLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor cmdSignOut;
-
-        /// <summary>
-        /// MainContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.HtmlControls.HtmlInputSubmit cmdLogin;
     }
 }
