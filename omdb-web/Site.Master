@@ -46,10 +46,13 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a runat="server" href="~/SecurePages/ProductList.aspx?type=movie&page=1">Movies</a>
+                            <a runat="server" href="~/SecurePages/ProductList.aspx?search=movie&type=movie&page=1">Movies</a>
                         </li>
                         <li>
-                            <a runat="server" href="~/SecurePages/ProductList.aspx?type=series&page=1">Series</a>
+                            <a runat="server" href="~/SecurePages/ProductList.aspx?search=series&type=series&page=1">Series</a>
+                        </li>
+                        <li>
+                            <a id="MyListID" runat="server" href="~/SecurePages/MyList.aspx">My List</a>
                         </li>
                     </ul>
                 </div>

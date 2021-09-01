@@ -8,6 +8,9 @@ using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using omdb_dal;
+using Dapper;
+using System.Data;
+using System.Configuration;
 
 namespace omdb_web
 {
@@ -92,5 +95,52 @@ namespace omdb_web
         {
             SeasonDropDownList.Items.Insert(0, new ListItem("Select a Season", ""));
         }
+
+        protected void AddToMyListButtonID_Click(object sender, EventArgs e)
+        {
+            string IMDBId = Request.QueryString["IMDBId"];
+            if ((HttpContext.Current.User != null) && HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                string userEmail = HttpContext.Current.User.Identity.Name;
+
+                //Add IMDB to UserList table
+                var db = new omdb_dal.OmdbDatabase(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString).GetDatabase();
+                db.Execute("AddToMyList", new
+                {
+                    @Email_Address = userEmail,
+                    @ImdbId = IMDBId
+                }, commandType: CommandType.StoredProcedure);
+
+            }
+            else
+            {
+
+            }
+
+        }
+
+        protected void RemoveFromMyListButtonID_Click(object sender, EventArgs e)
+        {
+            string IMDBId = Request.QueryString["IMDBId"];
+            if ((HttpContext.Current.User != null) && HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                string userEmail = HttpContext.Current.User.Identity.Name;
+
+                //Remove IMDB from UserList table
+                var db = new omdb_dal.OmdbDatabase(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString).GetDatabase();
+                db.Execute("RemoveFromMyList", new
+                {
+                    @Email_Address = userEmail,
+                    @ImdbId = IMDBId
+                }, commandType: CommandType.StoredProcedure);
+
+            }
+            else
+            {
+
+            }
+
+        }
+
     }
 }

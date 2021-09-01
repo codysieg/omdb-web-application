@@ -62,5 +62,8 @@ namespace omdb_dal.Models
 
         [JsonProperty("Error")]
         public string Error { get; set; }
+
+        // This is generated afterwards, not returned from the API.
+        public bool isFavourited { get; set; }
     }
 }

@@ -20,17 +20,23 @@ namespace omdb_web
             {
                 SearchBoxContainer.Visible = false;
             }
+            if (string.Compare(Request.Url.LocalPath, "/Register.aspx") == 0 || string.Compare(Request.Url.LocalPath, "/Register") == 0)
+            {
+                SearchBoxContainer.Visible = false;
+            }
 
             /**
              * If authenticated, hide Login button.
-             */ 
-            if((HttpContext.Current.User != null) && HttpContext.Current.User.Identity.IsAuthenticated) {
+             */
+            if ((HttpContext.Current.User != null) && HttpContext.Current.User.Identity.IsAuthenticated) {
                 LoginDiv.Visible = false;
                 LogoutDiv.Visible = true;
+                MyListID.Visible = true;
                 CurrentEmailLabel.Text = "Welcome, " + HttpContext.Current.User.Identity.Name;
             }
             else
             {
+                MyListID.Visible = false;
                 LogoutDiv.Visible = false;
             }
             this.cmdSignOut.ServerClick += new System.EventHandler(this.cmdSignOut_ServerClick);
@@ -38,9 +44,9 @@ namespace omdb_web
 
         protected void SearchBox_Submitted(object sender, EventArgs e)
         {
-            String APIContentType = Request.QueryString["type"];
+            String typeOfContent = Request.QueryString["type"];
             String search = SearchBox.Text;
-            Response.Redirect("~/SecurePages/ProductList.aspx?type=" + APIContentType + "&page=1" + "&search=" + search, false);
+            Response.Redirect("~/SecurePages/ProductList.aspx?search=" + search + "&type=" + typeOfContent + "&page=1", false);
             Context.ApplicationInstance.CompleteRequest();
         }
 

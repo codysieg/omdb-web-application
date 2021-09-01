@@ -124,6 +124,40 @@ a {
         padding: 8px;
     }
 
+.image-container{
+    position: relative;
+}
+
+.image-container:hover .image-overlay-favourites {
+    opacity: 1;
+}
+
+.image-container:hover .movie-details-poster-image {
+    opacity: 0.3;
+}
+
+.image-overlay-favourites {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+
+.add-to-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-overlay-favourites:hover {
+    opacity: 1;
+}
+
 /**
     CSS for ProductDetails Page, Movie Details
 */
@@ -131,6 +165,8 @@ a {
     width: 300px;
     height: 450px;
     margin-bottom: 10px;
+    opacity: 1;
+    transition: .5s ease;
 }
 
 .movie-container {
@@ -203,7 +239,10 @@ a {
     padding-bottom: 15px;
 }
 
-.flex-container {
+/**
+    CSS for the Login / Registration pages
+*/
+.authentication-flex-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -211,6 +250,6 @@ a {
     padding-top: 50px;
 }
 
-.flex-inner {
+.authentication-flex-inner {
 
 }

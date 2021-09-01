@@ -52,7 +52,7 @@ namespace omdb_web
                 string strRedirect;
                 strRedirect = Request["ReturnUrl"];
                 if (strRedirect == null)
-                    strRedirect = "Default.aspx";
+                    strRedirect = "~/Default.aspx";
                 Response.Redirect(strRedirect, true);
             }
             else

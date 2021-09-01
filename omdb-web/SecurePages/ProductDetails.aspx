@@ -28,6 +28,15 @@
         </ItemTemplate>
     </asp:FormView>
 
+    <%-- Add to My List --%>
+    <div>
+        <asp:Button ID="AddToMyListButtonID" OnClick="AddToMyListButtonID_Click" Text="Add to My List" runat="server" />
+    </div>
+
+    <div>
+        <asp:Button ID="RemoveFromMyListButtonID" OnClick="RemoveFromMyListButtonID_Click" Text="Remove from my List" runat="server" />
+    </div>
+
     <div class="season-dropdown-list-container">
         <asp:DropDownList ID="SeasonDropDownList" ItemType=".Models.Series" AutoPostBack="true" OnSelectedIndexChanged="SeasonDropDownList_ShowSeasonData" OnDataBound="SeasonDropDownList_DataBound" runat="server" />
     </div>

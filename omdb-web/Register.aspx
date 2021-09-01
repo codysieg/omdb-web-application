@@ -2,34 +2,32 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="d-flex justify-content-center h-100">
-        <div class="card">
-            <div class="card-header">
-                <h3>Register</h3>
+    <div class="authentication-flex-container">
+        <div class="authentication-flex-inner">
+            <div class="form-group">
+                <label for="txtFirstName">First Name</label>
+                <input type="text" class="form-control" id="txtFirstName" placeholder="First Name" runat="server">
             </div>
-            <div class="card-body">
-                <div class="input-group form-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
-                    <input id="txtEmail" type="email" class="form-control" runat="server">
-                    <asp:RequiredFieldValidator ControlToValidate="txtEmail"
-                        Display="Static" ErrorMessage="*" runat="server"
-                        ID="vUserName" />
-                </div>
-                <div class="input-group form-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    </div>
-                    <input id="txtPassword" type="password" runat="server">
-                    <asp:RequiredFieldValidator ControlToValidate="txtPassword"
-                        Display="Static" ErrorMessage="*" runat="server"
-                        ID="vUserPass" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Register" class="btn float-right login_btn" id="cmdRegister" runat="server">
-                </div>
+            <div class="form-group">
+                <label for="txtLastName">Last Name</label>
+                <input type="text" class="form-control" id="txtLastName" placeholder="Last Name" runat="server">
             </div>
+            <div class="form-group">
+                <label for="txtEmail">Email Address</label>
+                <input type="email" class="form-control" id="txtEmail" placeholder="Email Address" runat="server">
+                <asp:RequiredFieldValidator ControlToValidate="txtEmail"
+                    Display="Static" ErrorMessage="* A valid email address is required." runat="server"
+                    ID="vEmail" />
+            </div>
+            <div class="form-group">
+                <label for="txtPassword">Password</label>
+                <input type="password" class="form-control" id="txtPassword" placeholder="Password" runat="server">
+                <asp:RequiredFieldValidator ControlToValidate="txtPassword"
+                    Display="Static" ErrorMessage="* Please enter your password." runat="server"
+                    ID="vPassword" />
+            </div>
+
+            <input type="submit" value="Register" class="btn float-right login_btn" id="cmdRegister" runat="server">
         </div>
     </div>
 

@@ -24,6 +24,24 @@ namespace omdb_web
         protected global::System.Web.UI.WebControls.FormView IndividualContent;
 
         /// <summary>
+        /// AddToMyListButtonID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AddToMyListButtonID;
+
+        /// <summary>
+        /// RemoveFromMyListButtonID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RemoveFromMyListButtonID;
+
+        /// <summary>
         /// SeasonDropDownList control.
         /// </summary>
         /// <remarks>

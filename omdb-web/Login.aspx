@@ -2,18 +2,18 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="flex-container">
-        <div class="flex-inner">
+    <div class="authentication-flex-container">
+        <div class="authentication-flex-inner">
             <div class="form-group">
-                <label for="txtEmail">Email address</label>
-                <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp" runat="server">
+                <label for="txtEmail">Email Address</label>
+                <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp" placeholder="Email Address" runat="server">
                 <asp:RequiredFieldValidator ControlToValidate="txtEmail"
                     Display="Static" ErrorMessage="* A valid email address is required." runat="server"
                     ID="vEmail" />
             </div>
             <div class="form-group">
                 <label for="txtPassword">Password</label>
-                <input type="password" class="form-control" id="txtPassword" runat="server">
+                <input type="password" class="form-control" id="txtPassword" placeholder="Password" runat="server">
                 <asp:RequiredFieldValidator ControlToValidate="txtPassword"
                     Display="Static" ErrorMessage="* Please enter your password." runat="server"
                     ID="vPassword" />

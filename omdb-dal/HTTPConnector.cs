@@ -124,5 +124,27 @@ namespace omdb_dal
 
             return null;
         }
+
+        public static async Task<Movie> getAPIByImdbId(String IMDBId)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(HTTPConnector.BASE_API_URL + "&i=" + IMDBId);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var results = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<Movie>(results);
+                }
+
+            }
+
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc);
+            }
+
+            return null;
+        }
     }
 }

@@ -130,6 +130,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="SecurePages\MyList.aspx" />
     <Content Include="UserControls\PaginationUserControl.ascx" />
     <Content Include="SecurePages\ProductDetails.aspx" />
     <Content Include="SecurePages\ProductList.aspx" />
@@ -193,6 +194,13 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SecurePages\MyList.aspx.cs">
+      <DependentUpon>MyList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SecurePages\MyList.aspx.designer.cs">
+      <DependentUpon>MyList.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PaginationUserControl.ascx.cs">
       <DependentUpon>PaginationUserControl.ascx</DependentUpon>

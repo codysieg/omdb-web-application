@@ -33,21 +33,21 @@ namespace omdb_web
         protected global::System.Web.UI.WebControls.PlaceHolder PaginationPlaceholder;
 
         /// <summary>
-        /// paginationControl control.
+        /// PaginationUserControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::omdb_web.PaginationUserControl paginationControl;
+        protected global::omdb_web.PaginationUserControl PaginationUserControl;
 
         /// <summary>
-        /// PaginationTextBox control.
+        /// PaginationInfoLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PaginationTextBox;
+        protected global::System.Web.UI.WebControls.Label PaginationInfoLabel;
     }
 }
