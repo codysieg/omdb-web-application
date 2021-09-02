@@ -10,7 +10,7 @@
                 <ItemTemplate>
                     <div class="image-container">
                         <a href="ProductDetails.aspx?IMDBId=<%#Item.ImdbID %>">
-                            <asp:Image ID="Poster" runat="server" ImageUrl="<%# Item.Poster %>" CssClass="movie-details-poster-image" />
+                            <asp:Image ID="Poster" ImageUrl="<%# GetImagePathOrDefault(Item.Poster) %>" CssClass="movie-details-poster-image" runat="server" />
                         </a>
                     </div>
                 </ItemTemplate>

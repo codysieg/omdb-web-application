@@ -41,13 +41,33 @@ namespace omdb_web
             APIDataList.DataSource = movies.movies;
             APIDataList.DataBind();
 
-            numberOfPages = (int)(movies.TotalResults / 10.0) + 1;
+            if(movies.TotalResults % 10 == 0)
+            {
+                numberOfPages = (int) Math.Floor(movies.TotalResults / 10.0);
+            }
+            else
+            {
+                numberOfPages = (int)(Math.Floor(movies.TotalResults / 10.0)) + 1;
+            }
+
             PaginationInfoLabel.Text = "Page " + pageNumber + " of " + numberOfPages;
 
             PaginationUserControl.typeOfContent = typeOfContent;
             PaginationUserControl.searchQuery = searchQuery;
             PaginationUserControl.pageNumber = pageNumber;
             PaginationUserControl.numberOfPages = numberOfPages.ToString();
+        }
+
+        protected string GetImagePathOrDefault(string imagePath)
+        {
+            if(imagePath.Equals("N/A"))
+            {
+                return "~/Content/Images/no-image-found.png";
+            }
+            else
+            {
+                return imagePath;
+            }
         }
 
     }

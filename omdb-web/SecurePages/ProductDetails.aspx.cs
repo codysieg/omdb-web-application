@@ -158,5 +158,16 @@ namespace omdb_web
             AddToMyListButtonID.Visible = true;
             RemoveFromMyListButtonID.Visible = false;
         }
+        protected string GetImagePathOrDefault(string imagePath)
+        {
+            if (imagePath.Equals("N/A"))
+            {
+                return "~/Content/Images/no-image-found.png";
+            }
+            else
+            {
+                return imagePath;
+            }
+        }
     }
 }

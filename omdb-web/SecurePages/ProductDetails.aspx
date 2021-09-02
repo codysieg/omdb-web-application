@@ -6,7 +6,7 @@
         <ItemTemplate>
             <div class="movie-container">
                 <div class="movie-poster-container">
-                    <asp:Image runat="server" class="movie-details-poster-image" ImageUrl="<%# Item.Poster %>" />
+                    <asp:Image runat="server" class="movie-details-poster-image" ImageUrl="<%# GetImagePathOrDefault(Item.Poster) %>" />
                     <div runat="server"><span class="movie-details-tag">Rating: </span><%#Item.FilmRating %></div>
                     <div runat="server"><span class="movie-details-tag">Genre: </span><%#Item.Genre %></div>
                 </div>
