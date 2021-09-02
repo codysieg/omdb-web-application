@@ -25,6 +25,11 @@ namespace omdb_web
                 SearchBoxContainer.Visible = false;
             }
 
+            if (string.Compare(Request.Url.LocalPath, "/SecurePages/MyList.aspx") == 0 || string.Compare(Request.Url.LocalPath, "/SecurePages/MyList") == 0)
+            {
+                SearchBoxContainer.Visible = false;
+            }
+
             /**
              * If authenticated, hide Login button.
              */
@@ -39,6 +44,7 @@ namespace omdb_web
                 MyListID.Visible = false;
                 LogoutDiv.Visible = false;
             }
+
             this.cmdSignOut.ServerClick += new System.EventHandler(this.cmdSignOut_ServerClick);
         }
 
@@ -53,7 +59,7 @@ namespace omdb_web
         private void cmdSignOut_ServerClick(object sender, System.EventArgs e)
         {
             FormsAuthentication.SignOut();
-            Response.Redirect("Default.aspx", false);
+            Response.Redirect("~/Default.aspx", false);
             Context.ApplicationInstance.CompleteRequest();
         }
     }

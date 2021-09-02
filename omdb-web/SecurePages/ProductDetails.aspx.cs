@@ -28,52 +28,99 @@ namespace omdb_web
                     Context.ApplicationInstance.CompleteRequest();
                 }
 
-                List<Movie> movie = new List<Movie> { await HTTPConnector.getSpecificContentFromAPI(IMDBId) };
-                IndividualContent.DataSource = movie;
-                IndividualContent.DataBind();
+                Movie movie = await HTTPConnector.getSpecificContentFromAPI(IMDBId);
 
-                //Get the seasons and episodes in the seasons and show that information on the Product Details page
+                //Check to see if an error was returned from the API
+                //If so, display a message (bind null to the movie object
+                // to display the EmptyDataTemplate view.
 
-                //Initially fetch how many seasons are in the show. API is poopy.
-                int numOfSeasons = await HTTPConnector.getNumberOfSeasonsFromAPI(IMDBId);
-
-                if (numOfSeasons <= 0)
+                //Would like to do this a different way (take to an error page maybe?)
+                //This is a bad way to do it cause I have to handle hiding all the buttons.
+                if (movie == null || movie.Error != null)
                 {
+                    IndividualContent.DataSource = null;
+                    IndividualContent.DataBind();
+                    AddToMyListButtonID.Visible = false;
+                    RemoveFromMyListButtonID.Visible = false;
                     SeasonDropDownList.Visible = false;
                 }
-
-                List<String> series = new List<String>();
-
-                for (int i = 1; i <= numOfSeasons; i++)
+                else
                 {
+                    IndividualContent.DataSource = new List<Movie> { movie };
+                    IndividualContent.DataBind();
 
-                    List<Episode> episodes = new List<Episode>();
+                    //Check to see if this movie you are currently on is added to My List.
+                    getMyListStatusForMovie(IMDBId);
 
-                    if (await HTTPConnector.getSeasonByIDFromAPI(IMDBId, i) != null)
-                    {
-                        //Add option to dropdown
-                        series.Add("Season: " + i);
-                    }
-
+                    //Get the seasons and episodes in the seasons and show that information on the Product Details page
+                    //Initially fetch how many seasons are in the show. API is poopy.
+                    handleSeasonDropdownDataBinding(IMDBId);
                 }
 
-                SeasonDropDownList.DataSource = series;
-                SeasonDropDownList.DataBind();
+            }
+        }
+
+        private void getMyListStatusForMovie(String ImdbId)
+        {
+            var OmdbDataBaseConnector = new OmdbDatabaseConnector(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString);
+
+            if (OmdbDataBaseConnector.getFavouriteStatusByImdbId(ImdbId))
+            {
+                AddToMyListButtonID.Visible = false;
+                RemoveFromMyListButtonID.Visible = true;
+            }
+            else
+            {
+                AddToMyListButtonID.Visible = true;
+                RemoveFromMyListButtonID.Visible = false;
+            }
+        }
+
+        /**
+         * Handlers for Drop down & Click events / data-binding that occur on the page.
+         */
+        protected void SeasonDropDownList_DataBound(object sender, EventArgs e)
+        {
+            SeasonDropDownList.Items.Insert(0, new ListItem("Select a Season", ""));
+        }
+
+        private async void handleSeasonDropdownDataBinding(string IMDBId)
+        {
+            int numOfSeasons = await HTTPConnector.getNumberOfSeasonsFromAPI(IMDBId);
+            if (numOfSeasons <= 0)
+            {
+                SeasonDropDownList.Visible = false;
             }
 
+            List<string> series = new List<string>();
 
+            for (int i = 1; i <= numOfSeasons; i++)
+            {
+
+                List<Episode> episodes = new List<Episode>();
+
+                if (await HTTPConnector.getSeasonByIDFromAPI(IMDBId, i) != null)
+                {
+                    //Add option to dropdown
+                    series.Add("Season: " + i);
+                }
+
+            }
+
+            SeasonDropDownList.DataSource = series;
+            SeasonDropDownList.DataBind();
         }
 
         protected async void SeasonDropDownList_ShowSeasonData(object sender, EventArgs e)
         {
             String IMDBId = Request.QueryString["IMDBId"];
-            //Season: xx
-
             int seasonNumber = -1;
+
             if (SeasonDropDownList.SelectedValue.Length > 0)
             {
                 SeasonEpisodesListView.Visible = true;
 
+                //API returns Season: xx, need to parse from 7th character on to end.
                 seasonNumber = Int32.Parse(SeasonDropDownList.SelectedValue.Substring(7));
 
                 List<Episode> episodes = new List<Episode>();
@@ -88,59 +135,28 @@ namespace omdb_web
             {
                 SeasonEpisodesListView.Visible = false;
             }
-
-        }
-
-        protected void SeasonDropDownList_DataBound(object sender, EventArgs e)
-        {
-            SeasonDropDownList.Items.Insert(0, new ListItem("Select a Season", ""));
         }
 
         protected void AddToMyListButtonID_Click(object sender, EventArgs e)
         {
-            string IMDBId = Request.QueryString["IMDBId"];
-            if ((HttpContext.Current.User != null) && HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                string userEmail = HttpContext.Current.User.Identity.Name;
+            string ImdbId = Request.QueryString["IMDBId"];
 
-                //Add IMDB to UserList table
-                var db = new omdb_dal.OmdbDatabase(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString).GetDatabase();
-                db.Execute("AddToMyList", new
-                {
-                    @Email_Address = userEmail,
-                    @ImdbId = IMDBId
-                }, commandType: CommandType.StoredProcedure);
+            var OmdbDataBaseConnector = new OmdbDatabaseConnector(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString);
+            OmdbDataBaseConnector.addFavouriteToMyList(ImdbId);
 
-            }
-            else
-            {
-
-            }
-
+            AddToMyListButtonID.Visible = false;
+            RemoveFromMyListButtonID.Visible = true;
         }
 
         protected void RemoveFromMyListButtonID_Click(object sender, EventArgs e)
         {
-            string IMDBId = Request.QueryString["IMDBId"];
-            if ((HttpContext.Current.User != null) && HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                string userEmail = HttpContext.Current.User.Identity.Name;
+            string ImdbId = Request.QueryString["IMDBId"];
 
-                //Remove IMDB from UserList table
-                var db = new omdb_dal.OmdbDatabase(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString).GetDatabase();
-                db.Execute("RemoveFromMyList", new
-                {
-                    @Email_Address = userEmail,
-                    @ImdbId = IMDBId
-                }, commandType: CommandType.StoredProcedure);
+            var OmdbDataBaseConnector = new OmdbDatabaseConnector(ConfigurationManager.ConnectionStrings["OmdbDatabase"].ConnectionString);
+            OmdbDataBaseConnector.removeFavouriteFromMyList(ImdbId);
 
-            }
-            else
-            {
-
-            }
-
+            AddToMyListButtonID.Visible = true;
+            RemoveFromMyListButtonID.Visible = false;
         }
-
     }
 }

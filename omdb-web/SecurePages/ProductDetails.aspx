@@ -26,15 +26,15 @@
                 </div>
             </div>
         </ItemTemplate>
+        <EmptyDataTemplate>
+            No Movie was found for that particular Imdb ID.
+        </EmptyDataTemplate>
     </asp:FormView>
 
-    <%-- Add to My List --%>
-    <div>
-        <asp:Button ID="AddToMyListButtonID" OnClick="AddToMyListButtonID_Click" Text="Add to My List" runat="server" />
-    </div>
-
-    <div>
-        <asp:Button ID="RemoveFromMyListButtonID" OnClick="RemoveFromMyListButtonID_Click" Text="Remove from my List" runat="server" />
+    <%-- Add or Remove from My List --%>
+    <div class="add-or-remove-list-container">
+        <asp:Button ID="AddToMyListButtonID" CssClass="btn btn-warning" OnClick="AddToMyListButtonID_Click" Text="Add to My List" runat="server" />
+        <asp:Button ID="RemoveFromMyListButtonID" CssClass="btn btn-warning" OnClick="RemoveFromMyListButtonID_Click" Text="Remove from my List" runat="server" />
     </div>
 
     <div class="season-dropdown-list-container">
@@ -44,7 +44,7 @@
     <asp:ListView ID="SeasonEpisodesListView" ItemType="omdb_dal.Models.Episode" runat="server">
         <ItemTemplate>
             <div class="season-episodes-container">
-                <a href="SecurePages/ProductDetails.aspx?IMDBId=<%#Item.ImdbID %>">
+                <a href="<%= ResolveUrl("~/SecurePages/ProductDetails.aspx?IMDBId=")%><%# Item.ImdbID %>">
                     <div class="season-episodes-title" runat="server"><%#Item.Title%></div>
                     <div class="season-episodes-number" runat="server"><%#Item.EpisodeNumber%></div>
                 </a>
