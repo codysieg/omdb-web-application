@@ -74,13 +74,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\dbo.UserList_Create.sql" />
     <Content Include="App_Data\Procs\dbo.CreateUserProcedure.sql" />
     <Content Include="App_Data\dbo.Users_Create.sql" />
     <Content Include="App_Data\omdbdb.mdf" />
     <Content Include="App_Data\omdbdb_log.ldf">
       <DependentUpon>omdbdb.mdf</DependentUpon>
     </Content>
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HTTPConnector.cs" />
@@ -96,13 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
