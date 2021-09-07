@@ -26,12 +26,20 @@ namespace omdb_web
         {
             if (authenticateUser(txtEmail.Value, txtPassword.Value))
             {
+
+                //If the Remember Me checkbox is checked, set the expiration date of the ticket and the cookie to be 1 month, so that it will be a longer (& persistent) cookie.
+                DateTime expiration = DateTime.Now.AddMinutes(1);
+                if(chkPersistCookie.Checked)
+                {
+                    expiration = DateTime.Now.AddMonths(1);
+                }
+
                 //Create Cookie to store in Client Browser for session.
-                FormsAuthenticationTicket tkt = new FormsAuthenticationTicket(1, txtEmail.Value, DateTime.Now, DateTime.Now.AddMinutes(30), chkPersistCookie.Checked, "your custom data");
+                FormsAuthenticationTicket tkt = new FormsAuthenticationTicket(1, txtEmail.Value, DateTime.Now, expiration, chkPersistCookie.Checked, "");
                 string cookiestr = FormsAuthentication.Encrypt(tkt);
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, cookiestr);
                 if (chkPersistCookie.Checked)
-                    cookie.Expires = tkt.Expiration;
+                    cookie.Expires = expiration;
                 cookie.Path = FormsAuthentication.FormsCookiePath;
                 Response.Cookies.Add(cookie);
 
